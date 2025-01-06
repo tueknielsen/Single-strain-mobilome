@@ -216,7 +216,7 @@ ggplot(Relative_copies_ROI_df4, aes(x=factor(Time, level = c("5","20","60")),mea
   geom_jitter(alpha = 1, width = 0.2, size = 1.5) + 
   facet_wrap(~Annotation.y,scales = "free_y") +
   theme_bw() +
-  xlab("Time") +
+  labs(x="Time",color = "Treatment") +
   scale_color_brewer(palette="Paired") +
   scale_y_continuous(labels = function(x) format(x, scientific = TRUE),
                      name = "ROI copies relative to pOLA52\nadjustedd for exonuclease efficiency")
@@ -336,13 +336,14 @@ all_treat_100int_roi.stress <- all_treat_100int_roi.annot.data.filt %>%
   mutate(Rel_cop_pOLA52_exo_corrected = replace(Rel_cop_pOLA52_exo_corrected, which(Rel_cop_pOLA52_exo_corrected<0), 0.0))
 
 #850x650 export as svg
-#Figure 3.
+#Figure 3. Some significance levels are missing from the plot. These were added later manually based on manual revision of significance levels.
 ggboxplot(all_treat_100int_roi.IS, x = "Treat", y = "Rel_cop_pOLA52_exo_corrected", color = "Treat", outlier.shape = NA) +
   rotate_x_text(angle = 45) +
   geom_jitter(shape = 16, alpha = 0.3, size = 0.5) +
   facet_grid(Annotation.y~Time,scales = "free_y") +
   stat_summary(fun=mean, geom="point", shape=17, size=1) +
   theme_bw() +
+  labs(x="Treatment",color="Treatment") +
   scale_color_brewer(palette="Paired") +
   scale_y_sqrt(limits = c(-0.05,max(all_treat_100int_roi.IS$Rel_cop_pOLA52_exo_corrected)),name = "ROI/pOLA52 adjusted for exonuclease efficiency\n (square-root transformed)") +
   stat_compare_means(method = "kruskal.test", 
@@ -369,13 +370,14 @@ ggboxplot(all_treat_100int_roi.IS, x = "Treat", y = "Rel_cop_pOLA52_exo_correcte
 temp <- all_treat_100int_roi.IS %>% filter(Annotation.y == "IS1" & Time == "60")
 pairwise.wilcox.test(sqrt(temp$Rel_cop_pOLA52_exo_corrected), temp$Sample, p.adjust.method="bonferroni",exact = F)
 
-#Figure 2.
+#Figure 2. Some significance levels are missing from the plot. These were added later manually based on manual revision of significance levels.
 ggboxplot(all_treat_100int_roi.e14, x = "Treat", y = "Rel_cop_pOLA52_exo_corrected", color = "Treat", outlier.shape = NA) +
   rotate_x_text(angle = 45) +
   geom_jitter(shape = 16, alpha = 0.3, size = 0.5) +
   rotate_x_text(angle = 45) +
   facet_grid(Annotation.y~Time,scales = "free_y") +
   stat_summary(fun=mean, geom="point", shape=17, size=1) +
+  labs(x="Treatment", color = "Treatment") +
   theme_bw() +
   scale_color_brewer(palette="Paired") +
   scale_y_sqrt(limits = c(-0.02,max(all_treat_100int_roi.e14$Rel_cop_pOLA52_exo_corrected)),name = "ROI/pOLA52 adjusted for exonuclease efficiency\n (square-root transformed)") +
@@ -403,7 +405,7 @@ ggboxplot(all_treat_100int_roi.e14, x = "Treat", y = "Rel_cop_pOLA52_exo_correct
 temp <- all_treat_100int_roi.e14 %>% filter(Annotation.y == "e14" & Time == "20")
 pairwise.wilcox.test(sqrt(temp$Rel_cop_pOLA52_exo_corrected), temp$Sample, p.adjust.method="bonferroni",exact = F)
 
-#Figure 4.
+#Figure 4. Some significance levels are missing from the plot. These were added later manually based on manual revision of significance levels.
 ggboxplot(all_treat_100int_roi.REP, x = "Treat", y = "Rel_cop_pOLA52_exo_corrected", color = "Treat", outlier.shape = NA) +
   rotate_x_text(angle = 45) +
   geom_jitter(shape = 16, alpha = 0.3, size = 0.5) +
@@ -411,6 +413,7 @@ ggboxplot(all_treat_100int_roi.REP, x = "Treat", y = "Rel_cop_pOLA52_exo_correct
   facet_grid(Annotation.y~Time,scales = "free_y") +
   stat_summary(fun=mean, geom="point", shape=17, size=1) +
   theme_bw() +
+  labs(x = "Treatment",color="Treatment") +
   scale_color_brewer(palette="Paired") +
   scale_y_sqrt(limits = c(-0.05,max(all_treat_100int_roi.REP$Rel_cop_pOLA52_exo_corrected)),name = "ROI/pOLA52 adjusted for exonuclease efficiency\n (square-root transformed)") +
   stat_compare_means(method = "kruskal.test", 
